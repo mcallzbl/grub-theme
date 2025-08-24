@@ -1,92 +1,113 @@
-# python-uv
+# GRUB Theme Manager
 
-[English](./README.en.md) | [中文](#中文)
+[English](#english) | [中文](./README.zh.md)
 
-## 中文
+## English
 
-### 项目设置
+A Python tool for managing GRUB boot themes with both CLI and GUI interfaces.
+
+**We recommend using CLI**
+
+### Features
+
+- 🎨 **Theme Playlist Management**: Maintain theme rotation playlists
+- 🎲 **Random Theme Switching**: Automatic or manual random theme selection
+- 📁 **Multiple Installation Methods**: Support files, directories, URLs
+- 🖥️ **Dual Interface Support**: Flexible GUI and CLI usage
+- ⚙️ **System Integration**: systemd service for boot-time theme switching
+- 🔒 **Permission Handling**: Proper root permission checks
+
+### Quick Start
+
+#### Project Setup
 
 ```sh
+# Sync dependencies
 uv sync
 ```
 
-### 运行应用
+#### Development Usage
 
 ```sh
-uv run main.py
+# Show help
+uv run main.py --help
+
+# Launch GUI interface(not recommended)
+uv run main.py gui   
+
+# List all themes
+uv run main.py list --all
 ```
 
-### 添加新依赖
+#### System Installation
 
 ```sh
-# 添加生产依赖
-uv add package-name
+# System-wide installation (requires root)
+sudo scripts/install.sh
 
-# 添加开发依赖
-uv add --dev package-name
+# After installation, use system command
+grub-theme --help
+grub-theme gui
 ```
 
-### Python 版本管理
+### Main Commands
 
 ```sh
-# 查看当前使用的Python版本
-uv python list
-
-# 安装特定版本的Python
-uv python install 3.13
-
-# 在项目中使用特定版本
-uv python pin 3.13
+# Core commands
+grub-theme add <theme_path>         # Add theme to playlist
+sudo grub-theme set <theme_name>         # Set specific theme (needs root)
+sudo grub-theme random                   # Random theme switch (needs root)
+grub-theme remove <theme_name>      # Remove from playlist
+grub-theme list                     # Show playlist
+grub-theme list --all               # Show all themes
+grub-theme current                  # Show current theme
+sudo grub-theme install <file_or_url>    # Install theme file and auto-add to playlist
+grub-theme gui                      # Launch GUI
 ```
 
-### 虚拟环境管理
+#### some example
+sudo grub-theme install /home/mcallzbl/Downloads/Hysilens_cn.tar.gz
+sudo grub-theme install /home/mcallzbl/Downloads/StarRailGrubThemes-master/assets/themes/Aglaea_cn
 
-```sh
-# uv 会自动创建和管理虚拟环境
-# 查看虚拟环境信息
-uv venv --show
 
-# 激活虚拟环境（可选，uv run 会自动处理）
-source .venv/bin/activate  # Linux/macOS
-# 或
-.venv\Scripts\activate     # Windows
-```
+### GUI Interface
 
-### 常用命令
+The project provides a tkinter-based graphical user interface supporting:
+- Drag-and-drop theme installation
+- File selector
+- URL downloads
+- Theme preview
+- One-click switching
 
-```sh
-# 查看已安装的包
-uv pip list
+**Note**: The GUI may currently have some stability issues. CLI commands are recommended for critical operations.
 
-# 更新所有依赖到最新版本
-uv lock --upgrade
-
-# 导出requirements.txt格式的依赖列表
-uv export --format requirements-txt --output-file requirements.txt
-
-# 运行Python模块
-uv run python -m python-uv
-
-# 运行脚本
-uv run python script.py
-```
-
-### 项目结构
+### Project Structure
 
 ```
-python-uv/
-├── src/
-│   └── python-uv/
-│       └── __init__.py
-├── hello.py
-├── pyproject.toml
-├── uv.lock
-└── README.md
+grub-theme/
+├── core/                      # Business logic layer
+│   ├── models.py             # Data models
+│   └── theme_manager.py      # Core theme management
+├── cli/                      # Command-line interface
+│   └── main.py              # CLI implementation
+├── gui/                      # Graphical interface layer
+│   ├── base.py              # Abstract GUI interface
+│   └── tkinter_gui.py       # tkinter implementation
+├── scripts/                  # Installation and service files
+├── config.py                # Configuration management
+├── logging_setup.py         # Logging system
+└── main.py                  # Application entry point
 ```
 
-### 开发建议
+### Permission Requirements
 
-1. **依赖管理**: 使用 `uv add` 添加依赖，避免手动编辑 `pyproject.toml`
-2. **版本锁定**: `uv.lock` 文件应该提交到版本控制系统
-3. **Python版本**: 建议在 `pyproject.toml` 中指定支持的Python版本范围
-4. **虚拟环境**: uv 自动管理虚拟环境，通常不需要手动操作
+- **Read Operations**: Normal user permissions
+- **Theme Installation**: Root (writes to `/usr/share/grub/themes/`)
+- **Theme Setting**: Root (modifies `/etc/default/grub`, runs `update-grub`)
+- **Random Switching**: Root (same as theme setting)
+
+### Development Dependencies
+
+- Python >= 3.13
+- uv package manager
+- tkinter (built into Python, no extra dependencies for GUI)

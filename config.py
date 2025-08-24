@@ -8,32 +8,7 @@ from pydantic import Field
 from pydantic_settings import BaseSettings
 
 
-class DatabaseSettings(BaseSettings):
-    host: str = Field(default="localhost")
-    port: int = Field(default=5432)
-    name: str = Field(default="grub-theme_db")
-    user: str = Field(default="")
-    password: str = Field(default="")
 
-    model_config = {
-        "env_prefix": "DATABASE__",
-        "env_file": ".env",
-        "case_sensitive": False,
-        "extra": "ignore"
-    }
-
-
-class APISettings(BaseSettings):
-    version: str = Field(default="v1")
-    timeout: int = Field(default=30)
-    secret_key: str = Field(default="")
-
-    model_config = {
-        "env_prefix": "API__",
-        "env_file": ".env", 
-        "case_sensitive": False,
-        "extra": "ignore"
-    }
 
 
 class Settings(BaseSettings):
@@ -41,10 +16,6 @@ class Settings(BaseSettings):
     debug: bool = Field(default=False)
     log_level: str = Field(default="INFO")
     environment: str = Field(default="development")
-    
-    # 嵌套配置
-    database: DatabaseSettings = Field(default_factory=DatabaseSettings)
-    api: APISettings = Field(default_factory=APISettings)
     
     model_config = {
         "env_file": ".env",

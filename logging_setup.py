@@ -88,13 +88,12 @@ def setup_logging(
     
     # 性能日志（如果需要）
     if debug:
+        # 在调试模式下，性能日志输出到stderr，不需要rotation参数
         logger.add(
-            log_path / f"{app_name}_performance_{{time:YYYY-MM-DD}}.log" if not debug else sys.stderr,
+            sys.stderr,
             format="{time:YYYY-MM-DD HH:mm:ss.SSS} | PERF | {message}",
             level="DEBUG",
-            filter=performance_filter,
-            rotation="1 day",
-            retention="7 days"
+            filter=performance_filter
         )
     
     return logger

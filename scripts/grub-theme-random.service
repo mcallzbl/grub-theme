@@ -1,0 +1,13 @@
+[Unit]
+Description=GRUB Theme Random Switcher
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/grub-theme random
+StandardOutput=journal
+StandardError=journal
+User=root
+
+[Install]
+WantedBy=multi-user.target
