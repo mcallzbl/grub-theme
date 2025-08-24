@@ -16,6 +16,10 @@ import tarfile
 from .models import Theme, ThemeOperation, ThemeStatus
 from config import settings
 from logging_setup import get_logger
+from i18n import _, init_i18n
+
+# 初始化国际化
+init_i18n()
 
 logger = get_logger(__name__)
 
@@ -200,17 +204,17 @@ class ThemeManager:
         """添加主题到播放列表"""
         try:
             if not theme_path.exists():
-                return ThemeOperation(False, f"主题路径不存在: {theme_path}")
+                return ThemeOperation(False, _("Theme path does not exist: {path}").format(path=theme_path))
             
             theme_name = theme_path.name
             
             # 检查是否已在播放列表中
             if theme_name in self._playlist:
-                return ThemeOperation(False, f"主题 '{theme_name}' 已在播放列表中")
+                return ThemeOperation(False, _("Theme '{name}' is already in playlist").format(name=theme_name))
             
             # 检查主题是否有效
             if not (theme_path / "theme.txt").exists():
-                return ThemeOperation(False, f"无效的GRUB主题: 缺少 theme.txt 文件")
+                return ThemeOperation(False, _("Invalid GRUB theme: missing theme.txt file"))
             
             # 添加到播放列表
             self._playlist.append(theme_name)
@@ -219,17 +223,17 @@ class ThemeManager:
             theme = Theme(name=theme_name, path=theme_path)
             logger.info(f"主题已添加到播放列表: {theme_name}")
             
-            return ThemeOperation(True, f"主题 '{theme_name}' 已添加到播放列表", theme)
+            return ThemeOperation(True, _("Theme '{name}' added to playlist").format(name=theme_name), theme)
             
         except Exception as e:
             logger.error(f"添加主题失败: {e}")
-            return ThemeOperation(False, f"添加主题失败: {e}", error=e)
+            return ThemeOperation(False, _("Failed to add theme: {error}").format(error=e), error=e)
     
     def remove_theme(self, theme_name: str) -> ThemeOperation:
         """从播放列表中移除主题"""
         try:
             if theme_name not in self._playlist:
-                return ThemeOperation(False, f"主题 '{theme_name}' 不在播放列表中")
+                return ThemeOperation(False, _("Theme '{name}' is not in playlist").format(name=theme_name))
             
             self._playlist.remove(theme_name)
             
@@ -240,11 +244,11 @@ class ThemeManager:
             self.save_playlist()
             logger.info(f"主题已从播放列表移除: {theme_name}")
             
-            return ThemeOperation(True, f"主题 '{theme_name}' 已从播放列表移除")
+            return ThemeOperation(True, _("Theme '{name}' removed from playlist").format(name=theme_name))
             
         except Exception as e:
             logger.error(f"移除主题失败: {e}")
-            return ThemeOperation(False, f"移除主题失败: {e}", error=e)
+            return ThemeOperation(False, _("Failed to remove theme: {error}").format(error=e), error=e)
     
     def set_theme(self, theme_name: str) -> ThemeOperation:
         """设定指定主题为当前主题"""
@@ -252,11 +256,11 @@ class ThemeManager:
             theme_path = self.grub_themes_dir / theme_name
             
             if not theme_path.exists():
-                return ThemeOperation(False, f"主题不存在: {theme_name}")
+                return ThemeOperation(False, _("Theme does not exist: {name}").format(name=theme_name))
             
             theme = Theme(name=theme_name, path=theme_path)
             if not theme.is_valid:
-                return ThemeOperation(False, f"主题无效: {theme_name}")
+                return ThemeOperation(False, _("Invalid theme: {name}").format(name=theme_name))
             
             # 更新GRUB配置
             result = self._update_grub_config(theme_name)
@@ -267,24 +271,24 @@ class ThemeManager:
             self.save_playlist()
             
             logger.info(f"已设定主题: {theme_name}")
-            return ThemeOperation(True, f"已设定主题: {theme_name}", theme)
+            return ThemeOperation(True, _("Theme set: {name}").format(name=theme_name), theme)
             
         except Exception as e:
             logger.error(f"设定主题失败: {e}")
-            return ThemeOperation(False, f"设定主题失败: {e}", error=e)
+            return ThemeOperation(False, _("Failed to set theme: {error}").format(error=e), error=e)
     
     def random_theme(self) -> ThemeOperation:
         """随机选择一个主题"""
         try:
             if not self._playlist:
-                return ThemeOperation(False, "播放列表为空")
+                return ThemeOperation(False, _("Playlist is empty"))
             
             # 从播放列表中随机选择（排除当前主题）
             available_themes = [t for t in self._playlist if t != self._current_theme]
             
             if not available_themes:
                 if len(self._playlist) == 1:
-                    return ThemeOperation(False, "播放列表中只有一个主题")
+                    return ThemeOperation(False, _("Only one theme in playlist"))
                 available_themes = self._playlist
             
             selected_theme = random.choice(available_themes)
@@ -292,13 +296,13 @@ class ThemeManager:
             
         except Exception as e:
             logger.error(f"随机选择主题失败: {e}")
-            return ThemeOperation(False, f"随机选择主题失败: {e}", error=e)
+            return ThemeOperation(False, _("Failed to select random theme: {error}").format(error=e), error=e)
     
     def install_theme_from_file(self, file_path: Path, theme_name: Optional[str] = None) -> ThemeOperation:
         """从文件安装主题"""
         try:
             if not file_path.exists():
-                return ThemeOperation(False, f"文件不存在: {file_path}")
+                return ThemeOperation(False, _("File does not exist: {path}").format(path=file_path))
             
             # 确定主题名称
             if not theme_name:
@@ -308,7 +312,7 @@ class ThemeManager:
             
             # 检查目标目录是否存在
             if target_dir.exists():
-                return ThemeOperation(False, f"主题已存在: {theme_name}")
+                return ThemeOperation(False, _("Theme already exists: {name}").format(name=theme_name))
             
             # 根据文件类型处理
             file_suffix = file_path.suffix.lower()
@@ -321,11 +325,11 @@ class ThemeManager:
             elif file_path.is_dir():
                 return self._copy_theme_directory(file_path, target_dir, theme_name)
             else:
-                return ThemeOperation(False, f"不支持的文件类型: {file_path.suffix}")
+                return ThemeOperation(False, _("Unsupported file type: {type}").format(type=file_path.suffix))
                 
         except Exception as e:
             logger.error(f"安装主题失败: {e}")
-            return ThemeOperation(False, f"安装主题失败: {e}", error=e)
+            return ThemeOperation(False, _("Failed to install theme: {error}").format(error=e), error=e)
     
     def install_theme_from_url(self, url: str, theme_name: Optional[str] = None) -> ThemeOperation:
         """从URL下载并安装主题"""
@@ -355,7 +359,7 @@ class ThemeManager:
                 
         except Exception as e:
             logger.error(f"从URL安装主题失败: {e}")
-            return ThemeOperation(False, f"从URL安装主题失败: {e}", error=e)
+            return ThemeOperation(False, _("Failed to install theme from URL: {error}").format(error=e), error=e)
     
     def _extract_zip_theme(self, zip_path: Path, target_dir: Path, theme_name: str) -> ThemeOperation:
         """提取ZIP主题文件"""
@@ -372,7 +376,7 @@ class ThemeManager:
                     # 查找主题目录
                     theme_source = self._find_theme_directory(temp_path)
                     if not theme_source:
-                        return ThemeOperation(False, f"ZIP文件中没有找到有效的GRUB主题目录")
+                        return ThemeOperation(False, _("No valid GRUB theme directory found in ZIP file"))
                     
                     # 复制到目标位置
                     shutil.copytree(theme_source, target_dir)
@@ -381,10 +385,10 @@ class ThemeManager:
                 theme = Theme(name=theme_name, path=target_dir)
                 if not theme.is_valid:
                     shutil.rmtree(target_dir, ignore_errors=True)
-                    return ThemeOperation(False, f"提取的文件不是有效的GRUB主题")
+                    return ThemeOperation(False, _("Extracted files are not a valid GRUB theme"))
                 
                 logger.info(f"ZIP主题已提取: {theme_name}")
-                return ThemeOperation(True, f"主题 '{theme_name}' 安装成功", theme)
+                return ThemeOperation(True, _("Theme '{name}' installed successfully").format(name=theme_name), theme)
                 
         except Exception as e:
             # 清理失败的安装
@@ -407,7 +411,7 @@ class ThemeManager:
                     # 查找主题目录
                     theme_source = self._find_theme_directory(temp_path)
                     if not theme_source:
-                        return ThemeOperation(False, f"TAR文件中没有找到有效的GRUB主题目录")
+                        return ThemeOperation(False, _("No valid GRUB theme directory found in TAR file"))
                     
                     # 复制到目标位置
                     shutil.copytree(theme_source, target_dir)
@@ -416,10 +420,10 @@ class ThemeManager:
                 theme = Theme(name=theme_name, path=target_dir)
                 if not theme.is_valid:
                     shutil.rmtree(target_dir, ignore_errors=True)
-                    return ThemeOperation(False, f"提取的文件不是有效的GRUB主题")
+                    return ThemeOperation(False, _("Extracted files are not a valid GRUB theme"))
                 
                 logger.info(f"TAR主题已提取: {theme_name}")
-                return ThemeOperation(True, f"主题 '{theme_name}' 安装成功", theme)
+                return ThemeOperation(True, _("Theme '{name}' installed successfully").format(name=theme_name), theme)
                 
         except Exception as e:
             # 清理失败的安装
@@ -433,7 +437,7 @@ class ThemeManager:
             # 验证源主题
             source_theme = Theme(name=source_dir.name, path=source_dir)
             if not source_theme.is_valid:
-                return ThemeOperation(False, f"源目录不是有效的GRUB主题")
+                return ThemeOperation(False, _("Source directory is not a valid GRUB theme"))
             
             # 复制目录
             self._ensure_root_access()
@@ -482,7 +486,7 @@ class ThemeManager:
             grub_default_path = Path("/etc/default/grub")
             
             if not grub_default_path.exists():
-                return ThemeOperation(False, "GRUB配置文件不存在: /etc/default/grub")
+                return ThemeOperation(False, _("GRUB config file does not exist: /etc/default/grub"))
             
             # 读取当前配置
             lines = grub_default_path.read_text().splitlines()
@@ -513,7 +517,7 @@ class ThemeManager:
                     result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
                     if result.returncode == 0:
                         logger.info(f"GRUB配置已更新: {theme_name}")
-                        return ThemeOperation(True, f"GRUB配置更新成功 (使用: {cmd[0]})")
+                        return ThemeOperation(True, _("GRUB config updated successfully (using: {cmd})").format(cmd=cmd[0]))
                     else:
                         last_error = f"{cmd[0]}: {result.stderr}"
                         logger.warning(f"命令 {cmd[0]} 失败: {result.stderr}")
@@ -530,11 +534,11 @@ class ThemeManager:
                     logger.warning(f"命令执行出错 {cmd[0]}: {e}")
                     continue
             
-            return ThemeOperation(False, f"所有GRUB更新命令都失败了。最后错误: {last_error}")
+            return ThemeOperation(False, _("All GRUB update commands failed. Last error: {error}").format(error=last_error))
             
         except Exception as e:
             logger.error(f"更新GRUB配置失败: {e}")
-            return ThemeOperation(False, f"更新GRUB配置失败: {e}", error=e)
+            return ThemeOperation(False, _("Failed to update GRUB config: {error}").format(error=e), error=e)
     
     def _get_grub_update_commands(self):
         """根据系统类型获取GRUB更新命令"""

@@ -1,0 +1,528 @@
+# English (United States) translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-08-24 17:37+0800\n"
+"PO-Revision-Date: 2025-08-24 17:46+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en_US\n"
+"Language-Team: en_US <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: cli/main.py:31 gui/tkinter_gui.py:174
+msgid "GRUB Theme Manager"
+msgstr "GRUB Theme Manager"
+
+#: cli/main.py:32
+msgid "Use grub-theme <command> --help to see help for specific commands"
+msgstr "Use grub-theme <command> --help to see help for specific commands"
+
+#: cli/main.py:44
+msgid "Available commands"
+msgstr "Available commands"
+
+#: cli/main.py:51
+msgid "Add theme to playlist"
+msgstr "Add theme to playlist"
+
+#: cli/main.py:56
+msgid "Theme path or theme name"
+msgstr "Theme path or theme name"
+
+#: cli/main.py:62
+msgid "Set specified theme"
+msgstr "Set specified theme"
+
+#: cli/main.py:67
+msgid "Theme name"
+msgstr "Theme name"
+
+#: cli/main.py:73
+msgid "Randomly select theme"
+msgstr "Randomly select theme"
+
+#: cli/main.py:79
+msgid "Remove theme from playlist"
+msgstr "Remove theme from playlist"
+
+#: cli/main.py:84
+msgid "Theme name to remove"
+msgstr "Theme name to remove"
+
+#: cli/main.py:90
+msgid "List themes"
+msgstr "List themes"
+
+#: cli/main.py:95
+msgid "Show all themes (default: playlist only)"
+msgstr "Show all themes (default: playlist only)"
+
+#: cli/main.py:100
+msgid "Show detailed information"
+msgstr "Show detailed information"
+
+#: cli/main.py:106
+msgid "Show current theme"
+msgstr "Show current theme"
+
+#: cli/main.py:112
+msgid "Install theme file"
+msgstr "Install theme file"
+
+#: cli/main.py:117
+msgid "Theme file path or URL"
+msgstr "Theme file path or URL"
+
+#: cli/main.py:122
+msgid "Specify theme name"
+msgstr "Specify theme name"
+
+#: cli/main.py:127
+msgid "Do not add to playlist after installation (auto-add by default)"
+msgstr "Do not add to playlist after installation (auto-add by default)"
+
+#: cli/main.py:132
+msgid "Set as current theme after installation"
+msgstr "Set as current theme after installation"
+
+#: cli/main.py:138
+msgid "Launch graphical interface"
+msgstr "Launch graphical interface"
+
+#: cli/main.py:144
+msgid "View GRUB config file contents"
+msgstr "View GRUB config file contents"
+
+#: cli/main.py:150
+msgid "Show debug information (config paths, user info, etc.)"
+msgstr "Show debug information (config paths, user info, etc.)"
+
+#: cli/main.py:167
+msgid "Error: This operation requires root privileges, please run with sudo"
+msgstr "Error: This operation requires root privileges, please run with sudo"
+
+#: cli/main.py:175
+#, python-brace-format
+msgid "Unknown command: {command}"
+msgstr "Unknown command: {command}"
+
+#: cli/main.py:179
+msgid ""
+"\n"
+"Operation cancelled by user"
+msgstr ""
+"\n"
+"Operation cancelled by user"
+"\n"
+"Operation cancelled by user"
+
+#: cli/main.py:182
+#, python-brace-format
+msgid "Command execution failed: {error}"
+msgstr "Command execution failed: {error}"
+
+#: cli/main.py:183
+#, python-brace-format
+msgid "Error: {error}"
+msgstr "Error: {error}"
+
+#: cli/main.py:248 cli/main.py:429
+msgid "No themes found"
+msgstr "No themes found"
+
+#: cli/main.py:251
+#, python-brace-format
+msgid "All themes ({count}):"
+msgstr "All themes ({count}):"
+
+#: cli/main.py:274 core/theme_manager.py:284
+msgid "Playlist is empty"
+msgstr "Playlist is empty"
+
+#: cli/main.py:275
+msgid "Use 'grub-theme add <theme>' to add themes to playlist"
+msgstr "Use 'grub-theme add <theme>' to add themes to playlist"
+
+#: cli/main.py:278
+#, python-brace-format
+msgid "Playlist ({count} themes):"
+msgstr "Playlist ({count} themes):"
+
+#: cli/main.py:294 cli/main.py:406
+#, python-brace-format
+msgid "Current theme: {theme}"
+msgstr "Current theme: {theme}"
+
+#: cli/main.py:299
+#, python-brace-format
+msgid "Path: {path}"
+msgstr "Path: {path}"
+
+#: cli/main.py:301
+#, python-brace-format
+msgid "Description: {desc}"
+msgstr "Description: {desc}"
+
+#: cli/main.py:303
+msgid "Yes"
+msgstr "Yes"
+
+#: cli/main.py:303
+msgid "No"
+msgstr "No"
+
+#: cli/main.py:304
+#, python-brace-format
+msgid "In playlist: {status}"
+msgstr "In playlist: {status}"
+
+#: cli/main.py:306
+msgid "No theme currently set"
+msgstr "No theme currently set"
+
+#: cli/main.py:315
+#, python-brace-format
+msgid "Installing theme: {source}"
+msgstr "Installing theme: {source}"
+
+#: cli/main.py:331
+#, python-brace-format
+msgid "✓ Added to playlist: {theme}"
+msgstr "✓ Added to playlist: {theme}"
+
+#: cli/main.py:333
+#, python-brace-format
+msgid "! Failed to add to playlist: {error}"
+msgstr "! Failed to add to playlist: {error}"
+
+#: cli/main.py:339
+#, python-brace-format
+msgid "✓ Set as current theme: {theme}"
+msgstr "✓ Set as current theme: {theme}"
+
+#: cli/main.py:341
+#, python-brace-format
+msgid "! Failed to set as current theme: {error}"
+msgstr "! Failed to set as current theme: {error}"
+
+#: cli/main.py:353
+msgid "Starting graphical interface..."
+msgstr "Starting graphical interface..."
+
+#: cli/main.py:359
+#, python-brace-format
+msgid "Failed to start GUI, missing dependency: {error}"
+msgstr "Failed to start GUI, missing dependency: {error}"
+
+#: cli/main.py:362
+#, python-brace-format
+msgid "GUI runtime error: {error}"
+msgstr "GUI runtime error: {error}"
+
+#: cli/main.py:367
+msgid "GRUB config file contents (/etc/default/grub):"
+msgstr "GRUB config file contents (/etc/default/grub):"
+
+#: cli/main.py:380
+msgid "=== Debug Information ==="
+msgstr "=== Debug Information ==="
+
+#: cli/main.py:381
+#, python-brace-format
+msgid "Current user: {user}"
+msgstr "Current user: {user}"
+
+#: cli/main.py:382
+#, python-brace-format
+msgid "Current user ID: {uid}"
+msgstr "Current user ID: {uid}"
+
+#: cli/main.py:383
+#, python-brace-format
+msgid "Effective user ID: {euid}"
+msgstr "Effective user ID: {euid}"
+
+#: cli/main.py:384
+#, python-brace-format
+msgid "HOME directory: {home}"
+msgstr "HOME directory: {home}"
+
+#: cli/main.py:385
+#, python-brace-format
+msgid "Current working directory: {cwd}"
+msgstr "Current working directory: {cwd}"
+
+#: cli/main.py:388
+msgid "=== Config File Paths ==="
+msgstr "=== Config File Paths ==="
+
+#: cli/main.py:389
+#, python-brace-format
+msgid "Config file path: {path}"
+msgstr "Config file path: {path}"
+
+#: cli/main.py:390
+#, python-brace-format
+msgid "Config file exists: {exists}"
+msgstr "Config file exists: {exists}"
+
+#: cli/main.py:392
+#, python-brace-format
+msgid "Config file size: {size} bytes"
+msgstr "Config file size: {size} bytes"
+
+#: cli/main.py:395
+msgid "=== GRUB Themes Directory ==="
+msgstr "=== GRUB Themes Directory ==="
+
+#: cli/main.py:396
+#, python-brace-format
+msgid "GRUB themes directory: {dir}"
+msgstr "GRUB themes directory: {dir}"
+
+#: cli/main.py:397
+#, python-brace-format
+msgid "Directory exists: {exists}"
+msgstr "Directory exists: {exists}"
+
+#: cli/main.py:400
+#, python-brace-format
+msgid "Themes in directory: {themes}"
+msgstr "Themes in directory: {themes}"
+
+#: cli/main.py:403
+msgid "=== Playlist Status ==="
+msgstr "=== Playlist Status ==="
+
+#: cli/main.py:404
+#, python-brace-format
+msgid "Playlist length: {length}"
+msgstr "Playlist length: {length}"
+
+#: cli/main.py:405
+#, python-brace-format
+msgid "Playlist contents: {playlist}"
+msgstr "Playlist contents: {playlist}"
+
+#: cli/main.py:409
+msgid "=== Config File Contents ==="
+msgstr "=== Config File Contents ==="
+
+#: cli/main.py:415
+#, python-brace-format
+msgid "Failed to read config file: {error}"
+msgstr "Failed to read config file: {error}"
+
+#: cli/main.py:417
+msgid "Config file does not exist"
+msgstr "Config file does not exist"
+
+#: core/theme_manager.py:207
+#, python-brace-format
+msgid "Theme path does not exist: {path}"
+msgstr "Theme path does not exist: {path}"
+
+#: core/theme_manager.py:213
+#, python-brace-format
+msgid "Theme '{name}' is already in playlist"
+msgstr "Theme '{name}' is already in playlist"
+
+#: core/theme_manager.py:217
+msgid "Invalid GRUB theme: missing theme.txt file"
+msgstr "Invalid GRUB theme: missing theme.txt file"
+
+#: core/theme_manager.py:226
+#, python-brace-format
+msgid "Theme '{name}' added to playlist"
+msgstr "Theme '{name}' added to playlist"
+
+#: core/theme_manager.py:230
+#, python-brace-format
+msgid "Failed to add theme: {error}"
+msgstr "Failed to add theme: {error}"
+
+#: core/theme_manager.py:236
+#, python-brace-format
+msgid "Theme '{name}' is not in playlist"
+msgstr "Theme '{name}' is not in playlist"
+
+#: core/theme_manager.py:247
+#, python-brace-format
+msgid "Theme '{name}' removed from playlist"
+msgstr "Theme '{name}' removed from playlist"
+
+#: core/theme_manager.py:251
+#, python-brace-format
+msgid "Failed to remove theme: {error}"
+msgstr "Failed to remove theme: {error}"
+
+#: core/theme_manager.py:259
+#, python-brace-format
+msgid "Theme does not exist: {name}"
+msgstr "Theme does not exist: {name}"
+
+#: core/theme_manager.py:263
+#, python-brace-format
+msgid "Invalid theme: {name}"
+msgstr "Invalid theme: {name}"
+
+#: core/theme_manager.py:274
+#, python-brace-format
+msgid "Theme set: {name}"
+msgstr "Theme set: {name}"
+
+#: core/theme_manager.py:278
+#, python-brace-format
+msgid "Failed to set theme: {error}"
+msgstr "Failed to set theme: {error}"
+
+#: core/theme_manager.py:291
+msgid "Only one theme in playlist"
+msgstr "Only one theme in playlist"
+
+#: core/theme_manager.py:299
+#, python-brace-format
+msgid "Failed to select random theme: {error}"
+msgstr "Failed to select random theme: {error}"
+
+#: core/theme_manager.py:305
+#, python-brace-format
+msgid "File does not exist: {path}"
+msgstr "File does not exist: {path}"
+
+#: core/theme_manager.py:315
+#, python-brace-format
+msgid "Theme already exists: {name}"
+msgstr "Theme already exists: {name}"
+
+#: core/theme_manager.py:328
+#, python-brace-format
+msgid "Unsupported file type: {type}"
+msgstr "Unsupported file type: {type}"
+
+#: core/theme_manager.py:332
+#, python-brace-format
+msgid "Failed to install theme: {error}"
+msgstr "Failed to install theme: {error}"
+
+#: core/theme_manager.py:362
+#, python-brace-format
+msgid "Failed to install theme from URL: {error}"
+msgstr "Failed to install theme from URL: {error}"
+
+#: core/theme_manager.py:379
+msgid "No valid GRUB theme directory found in ZIP file"
+msgstr "No valid GRUB theme directory found in ZIP file"
+
+#: core/theme_manager.py:388 core/theme_manager.py:423
+msgid "Extracted files are not a valid GRUB theme"
+msgstr "Extracted files are not a valid GRUB theme"
+
+#: core/theme_manager.py:391 core/theme_manager.py:426
+#, python-brace-format
+msgid "Theme '{name}' installed successfully"
+msgstr "Theme '{name}' installed successfully"
+
+#: core/theme_manager.py:414
+msgid "No valid GRUB theme directory found in TAR file"
+msgstr "No valid GRUB theme directory found in TAR file"
+
+#: core/theme_manager.py:440
+msgid "Source directory is not a valid GRUB theme"
+msgstr "Source directory is not a valid GRUB theme"
+
+#: core/theme_manager.py:489
+msgid "GRUB config file does not exist: /etc/default/grub"
+msgstr "GRUB config file does not exist: /etc/default/grub"
+
+#: core/theme_manager.py:520
+#, python-brace-format
+msgid "GRUB config updated successfully (using: {cmd})"
+msgstr "GRUB config updated successfully (using: {cmd})"
+
+#: core/theme_manager.py:537
+#, python-brace-format
+msgid "All GRUB update commands failed. Last error: {error}"
+msgstr "All GRUB update commands failed. Last error: {error}"
+
+#: core/theme_manager.py:541
+#, python-brace-format
+msgid "Failed to update GRUB config: {error}"
+msgstr "Failed to update GRUB config: {error}"
+
+#: gui/tkinter_gui.py:39 gui/tkinter_gui.py:82
+msgid "Administrator privileges required"
+msgstr "Administrator privileges required"
+
+#: gui/tkinter_gui.py:88
+#, python-brace-format
+msgid "Operation: {operation}"
+msgstr "Operation: {operation}"
+
+#: gui/tkinter_gui.py:94
+msgid "Please enter your password to continue."
+msgstr "Please enter your password to continue."
+
+#: gui/tkinter_gui.py:102
+msgid "Password:"
+msgstr "Password:"
+
+#: gui/tkinter_gui.py:114
+msgid "Cancel"
+msgstr "Cancel"
+
+#: gui/tkinter_gui.py:120
+msgid "OK"
+msgstr "OK"
+
+#: gui/tkinter_gui.py:145 gui/tkinter_gui.py:150 gui/tkinter_gui.py:152
+msgid "Error"
+msgstr "Error"
+
+#: gui/tkinter_gui.py:145
+msgid "Incorrect password, please try again."
+msgstr "Incorrect password, please try again."
+
+#: gui/tkinter_gui.py:150
+msgid "Permission verification timeout."
+msgstr "Permission verification timeout."
+
+#: gui/tkinter_gui.py:152
+#, python-brace-format
+msgid "Permission verification failed: {error}"
+msgstr "Permission verification failed: {error}"
+
+#: gui/tkinter_gui.py:154
+msgid "Notice"
+msgstr "Notice"
+
+#: gui/tkinter_gui.py:154
+msgid "Please enter password."
+msgstr "Please enter password."
+
+#: gui/tkinter_gui.py:216
+#, python-brace-format
+msgid "Error closing GUI: {error}"
+msgstr "Error closing GUI: {error}"
+
+#: gui/tkinter_gui.py:237
+msgid "Select file"
+msgstr "Select file"
+
+#: gui/tkinter_gui.py:239
+msgid "All files"
+msgstr "All files"
+
+#: gui/tkinter_gui.py:251
+msgid "Select directory"
+msgstr "Select directory"
+

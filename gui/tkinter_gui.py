@@ -19,6 +19,10 @@ from .base import BaseThemeGUI, SudoThemeManager
 from core.models import Theme
 from core.theme_manager import ThemeManager
 from logging_setup import get_logger
+from i18n import _, init_i18n
+
+# 初始化国际化
+init_i18n()
 
 logger = get_logger(__name__)
 
@@ -32,7 +36,7 @@ class SudoPasswordDialog:
         
         # 创建对话框窗口
         self.dialog = tk.Toplevel(parent)
-        self.dialog.title("需要管理员权限")
+        self.dialog.title(_("Administrator privileges required"))
         self.dialog.geometry("400x200")
         self.dialog.resizable(False, False)
         self.dialog.transient(parent)
@@ -75,19 +79,19 @@ class SudoPasswordDialog:
         
         ttk.Label(
             message_frame, 
-            text="需要管理员权限",
+            text=_("Administrator privileges required"),
             font=("", 12, "bold")
         ).pack(anchor=tk.W)
         
         ttk.Label(
             message_frame,
-            text=f"操作：{self.operation_name}",
+            text=_("Operation: {operation}").format(operation=self.operation_name),
             font=("", 10)
         ).pack(anchor=tk.W, pady=(2, 0))
         
         ttk.Label(
             message_frame,
-            text="请输入您的密码来继续。",
+            text=_("Please enter your password to continue."),
             font=("", 10)
         ).pack(anchor=tk.W, pady=(2, 0))
         
@@ -95,7 +99,7 @@ class SudoPasswordDialog:
         password_frame = ttk.Frame(main_frame)
         password_frame.pack(fill=tk.X, pady=(10, 20))
         
-        ttk.Label(password_frame, text="密码:", width=8).pack(side=tk.LEFT)
+        ttk.Label(password_frame, text=_("Password:"), width=8).pack(side=tk.LEFT)
         
         self.password_entry = ttk.Entry(password_frame, show="*", width=30)
         self.password_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(5, 0))
@@ -107,13 +111,13 @@ class SudoPasswordDialog:
         
         ttk.Button(
             button_frame, 
-            text="取消", 
+            text=_("Cancel"), 
             command=self._on_cancel
         ).pack(side=tk.RIGHT, padx=(5, 0))
         
         ttk.Button(
             button_frame, 
-            text="确定", 
+            text=_("OK"), 
             command=self._on_ok
         ).pack(side=tk.RIGHT)
     
@@ -138,16 +142,16 @@ class SudoPasswordDialog:
                     self.result = password
                     self.dialog.destroy()
                 else:
-                    messagebox.showerror("错误", "密码不正确，请重试。", parent=self.dialog)
+                    messagebox.showerror(_("Error"), _("Incorrect password, please try again."), parent=self.dialog)
                     self.password_entry.delete(0, tk.END)
                     self.password_entry.focus_set()
                     
             except subprocess.TimeoutExpired:
-                messagebox.showerror("错误", "权限验证超时。", parent=self.dialog)
+                messagebox.showerror(_("Error"), _("Permission verification timeout."), parent=self.dialog)
             except Exception as e:
-                messagebox.showerror("错误", f"权限验证失败: {e}", parent=self.dialog)
+                messagebox.showerror(_("Error"), _("Permission verification failed: {error}").format(error=e), parent=self.dialog)
         else:
-            messagebox.showwarning("提示", "请输入密码。", parent=self.dialog)
+            messagebox.showwarning(_("Notice"), _("Please enter password."), parent=self.dialog)
     
     def _on_cancel(self):
         """取消按钮事件"""
@@ -167,7 +171,7 @@ class TkinterThemeGUI(BaseThemeGUI):
         else:
             self.root = tk.Tk()
             
-        self.root.title("GRUB 主题管理器")
+        self.root.title(_("GRUB Theme Manager"))
         self.root.geometry("800x600")
         self.root.minsize(600, 400)
         
@@ -209,7 +213,7 @@ class TkinterThemeGUI(BaseThemeGUI):
             self.root.quit()
             self.root.destroy()
         except Exception as e:
-            logger.error(f"关闭GUI时出错: {e}")
+            logger.error(_("Error closing GUI: {error}").format(error=e))
     
     def show_message(self, title: str, message: str, message_type: str = "info") -> None:
         """显示消息对话框"""
@@ -226,11 +230,13 @@ class TkinterThemeGUI(BaseThemeGUI):
         """显示确认对话框"""
         return messagebox.askyesno(title, message)
     
-    def select_file(self, title: str = "选择文件", 
+    def select_file(self, title: str = None, 
                    filetypes: Optional[List[tuple]] = None) -> Optional[Path]:
         """文件选择对话框"""
+        if title is None:
+            title = _("Select file")
         if filetypes is None:
-            filetypes = [("所有文件", "*.*")]
+            filetypes = [(_("All files"), "*.*")]
         
         filename = filedialog.askopenfilename(
             title=title,
@@ -239,8 +245,10 @@ class TkinterThemeGUI(BaseThemeGUI):
         
         return Path(filename) if filename else None
     
-    def select_directory(self, title: str = "选择目录") -> Optional[Path]:
+    def select_directory(self, title: str = None) -> Optional[Path]:
         """目录选择对话框"""
+        if title is None:
+            title = _("Select directory")
         dirname = filedialog.askdirectory(title=title)
         return Path(dirname) if dirname else None
     

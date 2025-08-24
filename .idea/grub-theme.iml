@@ -7,7 +7,7 @@
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/scripts/logs" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.13 (grub-theme)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="uv (grub-theme)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">

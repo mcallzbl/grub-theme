@@ -4,5 +4,5 @@
     <option name="sdkName" value="Python 3.13 (grub-theme)" />
   </component>
   <component name="KubernetesApiProvider"><![CDATA[{}]]></component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (grub-theme)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="uv (grub-theme)" project-jdk-type="Python SDK" />
 </project>
