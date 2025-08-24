@@ -50,6 +50,19 @@ grub-theme --help
 grub-theme gui
 ```
 
+**注意**: 系统安装后，会自动配置一个systemd服务，在每次系统启动时从播放列表中随机切换主题。您可以根据需要启用/禁用此服务：
+
+```sh
+# 启用启动时自动随机主题切换
+sudo systemctl enable grub-theme-random.service
+
+# 禁用启动时自动随机主题切换
+sudo systemctl disable grub-theme-random.service
+
+# 检查服务状态
+sudo systemctl status grub-theme-random.service
+```
+
 ### 主要命令
 
 ```sh

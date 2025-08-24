@@ -50,6 +50,19 @@ grub-theme --help
 grub-theme gui
 ```
 
+**Note**: After system installation, a systemd service is automatically configured that will randomly switch themes from your playlist on each system boot. You can enable/disable this service as needed:
+
+```sh
+# Enable automatic random theme switching on boot
+sudo systemctl enable grub-theme-random.service
+
+# Disable automatic random theme switching on boot
+sudo systemctl disable grub-theme-random.service
+
+# Check service status
+sudo systemctl status grub-theme-random.service
+```
+
 ### Main Commands
 
 ```sh
